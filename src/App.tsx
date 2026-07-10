@@ -143,14 +143,14 @@ const stopScanning = useCallback(() => {
              target: videoRef.current ?? undefined,
              constraints: {
                facingMode: "environment",
-               width: { ideal: 1920 },
-               height: { ideal: 1080 },
+               width: { ideal: 640 },
+               height: { ideal: 300},
              },
              area: {
-               top: "42%",
-               right: "8%",
-               left: "8%",
-               bottom: "42%",
+               top: "80%",
+               right: "10%",
+               left: "10%",
+               bottom: "80%",
              },
            },
 
