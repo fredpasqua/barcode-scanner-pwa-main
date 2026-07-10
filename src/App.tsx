@@ -76,7 +76,7 @@ const testBarcodeImage = (file: File) => {
         },
 
         decoder: {
-          readers: ["i2of5_reader", "2of5_reader"],
+          readers: ["code_128_reader"],
           multiple: false,
         },
       },
@@ -196,10 +196,10 @@ const stopScanning = useCallback(() => {
                height: { ideal: 1080 },
              },
              area: {
-               top: "0%",
-               right: "0%",
-               left: "0%",
-               bottom: "0%",
+               top: "20%",
+               right: "5%",
+               left: "5%",
+               bottom: "20%",
              },
            },
 
