@@ -9,6 +9,7 @@ type Notice = { type: 'success' | 'warning' | 'error' | 'info'; text: string };
 const hints = new Map();
 hints.set(DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.ITF]);
 hints.set(DecodeHintType.TRY_HARDER, true);
+hints.set(DecodeHintType.ALLOWED_LENGTHS, [6]);
 
 function App() {
   const [barcodes, setBarcodes] = useState<string[]>(() => {
