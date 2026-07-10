@@ -593,7 +593,7 @@ function App() {
           )}
         </div>
 
-        {/* <div className="button-row">
+        <div className="button-row">
           <button
             type="button"
             className="primary"
@@ -602,7 +602,7 @@ function App() {
             {isScanning ? "Pause Scanner" : "Start Scanner"}
           </button>
 
-          <label className="secondary">
+          {/* <label className="secondary">
             Test Barcode Photo
             <input
               type="file"
@@ -619,8 +619,8 @@ function App() {
                 event.currentTarget.value = "";
               }}
             />
-          </label>
-        </div> */}
+          </label> */}
+        </div>
       </section>
 
       <section className="panel">
