@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icon.svg"],
       manifest: {
-        scope: '/barcode-scanner-pwa-main',
+        scope: '/barcode-scanner-pwa-main/',
         name: "Six Digit Barcode Scanner",
         short_name: "Barcode Scan",
         description:
@@ -19,7 +19,7 @@ export default defineConfig({
         background_color: "#f8fafc",
         display: "standalone",
         orientation: "portrait",
-        start_url: "/barcode-scanner-pwa-main",
+        start_url: "/barcode-scanner-pwa-main/",
         icons: [
           {
             src: "icon.svg",
