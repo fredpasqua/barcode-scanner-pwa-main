@@ -24,6 +24,15 @@ function App() {
   const [showDownload, setShowDownload] = useState(false);
   const [fileBaseName, setFileBaseName] = useState('');
 const videoRef = useRef<HTMLDivElement>(null);
+const candidateRef = useRef<{
+  value: string;
+  count: number;
+  lastSeen: number;
+}>({
+  value: "",
+  count: 0,
+  lastSeen: 0,
+});
   const scannerRunningRef = useRef(false);
   const lastDecodeRef = useRef<{ value: string; at: number }>({ value: '', at: 0 });
   const barcodeSetRef = useRef(new Set(barcodes));
@@ -149,7 +158,7 @@ const stopScanning = useCallback(() => {
              ? Math.min(navigator.hardwareConcurrency, 4)
              : 2,
 
-           frequency: 10,
+           frequency: 6,
 
            decoder: {
              readers: ["i2of5_reader"],
@@ -168,31 +177,59 @@ locate: false
        );
      });
 
-     const handleDetected = (result: {
-       codeResult?: {
-         code?: string | null;
-       };
-     }) => {
-       const value = result.codeResult?.code?.trim();
+    const handleDetected = (result: {
+      codeResult?: {
+        code?: string | null;
+      };
+    }) => {
+      const value = result.codeResult?.code?.trim();
+      const now = Date.now();
 
-       if (!value) return;
+      if (!value || !/^\d{6}$/.test(value)) {
+        return;
+      }
 
-       const now = Date.now();
+      const candidate = candidateRef.current;
 
-       if (
-         lastDecodeRef.current.value === value &&
-         now - lastDecodeRef.current.at < 1500
-       ) {
-         return;
-       }
+      if (candidate.value === value && now - candidate.lastSeen < 1200) {
+        candidate.count += 1;
+        candidate.lastSeen = now;
+      } else {
+        candidateRef.current = {
+          value,
+          count: 1,
+          lastSeen: now,
+        };
+      }
 
-       lastDecodeRef.current = {
-         value,
-         at: now,
-       };
+      if (candidateRef.current.count < 3) {
+        setNotice({
+          type: "info",
+          text: `Reading ${value}… hold steady.`,
+        });
+        return;
+      }
 
-       addBarcode(value, "scan");
-     };
+      if (
+        lastDecodeRef.current.value === value &&
+        now - lastDecodeRef.current.at < 2500
+      ) {
+        return;
+      }
+
+      lastDecodeRef.current = {
+        value,
+        at: now,
+      };
+
+      candidateRef.current = {
+        value: "",
+        count: 0,
+        lastSeen: 0,
+      };
+
+      addBarcode(value, "scan");
+    };
 Quagga.onProcessed((result) => {
   const drawingCanvas = Quagga.canvas.dom.overlay;
   const drawingContext = Quagga.canvas.ctx.overlay;
