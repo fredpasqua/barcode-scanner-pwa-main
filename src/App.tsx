@@ -593,7 +593,7 @@ function App() {
           )}
         </div>
 
-        <div className="button-row">
+        {/* <div className="button-row">
           <button
             type="button"
             className="primary"
@@ -620,7 +620,7 @@ function App() {
               }}
             />
           </label>
-        </div>
+        </div> */}
       </section>
 
       <section className="panel">
