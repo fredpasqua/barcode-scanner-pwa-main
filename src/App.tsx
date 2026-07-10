@@ -123,7 +123,7 @@ function App() {
       );
       controlsRef.current = controls;
       setIsScanning(true);
-      setNotice({ type: 'info', text: 'Scanner active. Hold a Code 128 barcode inside the frame.' });
+      setNotice({ type: 'info', text: 'Scanner active. Hold an Interleaved 2 of 5 barcode inside the frame.' });
     } catch (error) {
       setIsScanning(false);
       const message = error instanceof DOMException && error.name === 'NotAllowedError'

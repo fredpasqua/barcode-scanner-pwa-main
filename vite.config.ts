@@ -11,7 +11,7 @@ export default defineConfig({
       manifest: {
         name: 'Six Digit Barcode Scanner',
         short_name: 'Barcode Scan',
-        description: 'Scan unique six-digit Code 128 barcodes and export them as CSV.',
+        description: 'Scan unique six-digit interleaved 2 of 5 (ITF) barcodes and export them as CSV.',
         theme_color: '#0f766e',
         background_color: '#f8fafc',
         display: 'standalone',

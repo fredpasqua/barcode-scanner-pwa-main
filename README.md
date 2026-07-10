@@ -1,6 +1,6 @@
 # Six Digit Barcode Scanner PWA
 
-A mobile-first progressive web app for continuously scanning unique six-digit Code 128 barcodes, recovering the active session from local storage, and exporting a numbers-only CSV.
+A mobile-first progressive web app for continuously scanning unique six-digit interleaved 2 of 5 (ITF) barcodes, recovering the active session from local storage, and exporting a numbers-only CSV.
 
 ## Requirements
 
@@ -33,7 +33,7 @@ npm run preview
 
 ## Important behavior
 
-- Scans Code 128 only and accepts exactly six digits.
+- Scans interleaved 2 of 5 (ITF) only and accepts exactly six digits.
 - Duplicate values are rejected within the current stored session.
 - Values persist in local storage until **Clear All** is confirmed.
 - CSV files contain numbers only, one per line, in original scan order.
