@@ -158,7 +158,7 @@ const stopScanning = useCallback(() => {
              ? Math.min(navigator.hardwareConcurrency, 4)
              : 2,
 
-           frequency: 6,
+           frequency: 10,
 
            decoder: {
              readers: ["i2of5_reader"],
@@ -191,24 +191,24 @@ locate: false
 
       const candidate = candidateRef.current;
 
-      if (candidate.value === value && now - candidate.lastSeen < 1200) {
-        candidate.count += 1;
-        candidate.lastSeen = now;
-      } else {
-        candidateRef.current = {
-          value,
-          count: 1,
-          lastSeen: now,
-        };
-      }
+     if (candidate.value === value && now - candidate.lastSeen < 2500) {
+       candidate.count += 1;
+       candidate.lastSeen = now;
+     } else {
+       candidateRef.current = {
+         value,
+         count: 1,
+         lastSeen: now,
+       };
+     }
 
-      if (candidateRef.current.count < 3) {
-        setNotice({
-          type: "info",
-          text: `Reading ${value}… hold steady.`,
-        });
-        return;
-      }
+     if (candidateRef.current.count < 2) {
+       setNotice({
+         type: "info",
+         text: `Reading ${value}… hold steady.`,
+       });
+       return;
+     }
 
       if (
         lastDecodeRef.current.value === value &&
