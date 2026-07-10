@@ -432,6 +432,23 @@ Quagga.onProcessed((result) => {
           >
             {isScanning ? "Pause Scanner" : "Start Scanner"}
           </button>
+
+          <label className="secondary">
+            Test Barcode Photo
+            <input
+              type="file"
+              accept="image/*"
+              capture="environment"
+              hidden
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+
+                if (file) {
+                  testBarcodeImage(file);
+                }
+              }}
+            />
+          </label>
         </div>
       </section>
 
