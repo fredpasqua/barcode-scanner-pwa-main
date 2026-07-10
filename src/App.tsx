@@ -53,7 +53,56 @@ const candidateRef = useRef<{
   };
 }, []);
 
+const testBarcodeImage = (file: File) => {
+  const reader = new FileReader();
 
+  reader.onload = () => {
+    if (typeof reader.result !== "string") return;
+
+    Quagga.decodeSingle(
+      {
+        src: reader.result,
+        numOfWorkers: 0,
+        locate: true,
+
+        inputStream: {
+          size: 1600,
+          singleChannel: false,
+        },
+
+        locator: {
+          patchSize: "small",
+          halfSample: false,
+        },
+
+        decoder: {
+          readers: ["i2of5_reader", "2of5_reader"],
+          multiple: false,
+        },
+      },
+      (result) => {
+        console.log("Still image result:", result);
+
+        const code = result?.codeResult?.code;
+        const format = result?.codeResult?.format;
+
+        if (code) {
+          setNotice({
+            type: "success",
+            text: `Image decoded as ${code} (${format ?? "unknown format"}).`,
+          });
+        } else {
+          setNotice({
+            type: "error",
+            text: "The still image could not be decoded.",
+          });
+        }
+      },
+    );
+  };
+
+  reader.readAsDataURL(file);
+};
   const vibrate = useCallback((pattern: number | number[]) => {
     navigator.vibrate?.(pattern);
   }, []);
