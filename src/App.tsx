@@ -147,10 +147,10 @@ const stopScanning = useCallback(() => {
                height: { ideal: 1080 },
              },
              area: {
-               top: "20%",
+               top: "0%",
                right: "0%",
                left: "0%",
-               bottom: "20%",
+               bottom: "0%",
              },
            },
 
@@ -158,7 +158,7 @@ const stopScanning = useCallback(() => {
              ? Math.min(navigator.hardwareConcurrency, 4)
              : 2,
 
-           frequency: 10,
+           frequency: 3,
 
            decoder: {
              readers: ["i2of5_reader", "2of5_reader"],
