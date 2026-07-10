@@ -147,10 +147,10 @@ const stopScanning = useCallback(() => {
                height: { ideal: 1080 },
              },
              area: {
-               top: "35%",
-               right: "5%",
-               left: "5%",
-               bottom: "35%",
+               top: "25%",
+               right: "25%",
+               left: "25%",
+               bottom: "25%",
              },
            },
 
@@ -164,7 +164,7 @@ const stopScanning = useCallback(() => {
              readers: ["i2of5_reader"],
              multiple: false,
            },
-           locate: false,
+           locate: true,
          },
          (error) => {
            if (error) {
