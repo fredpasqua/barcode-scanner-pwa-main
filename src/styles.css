@@ -50,3 +50,21 @@ video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .modal input { margin-bottom: 14px; }
 @media (min-width: 600px) { .modal-backdrop { place-items: center; } .modal { padding: 26px; } }
 @media (max-width: 390px) { .action-grid { grid-template-columns: 1fr; } .manual-form { grid-template-columns: 1fr; } }
+.quagga-camera {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.quagga-camera video,
+.quagga-camera canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.quagga-camera canvas.drawingBuffer {
+    z-index: 2;
+    pointer-events: none;
+}

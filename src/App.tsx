@@ -33,15 +33,16 @@ const videoRef = useRef<HTMLDivElement>(null);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(barcodes));
   }, [barcodes]);
 
-    useEffect(() => {
-      return () => {
-        if (scannerRunningRef.current) {
-          Quagga.offDetected();
-          Quagga.stop();
-          scannerRunningRef.current = false;
-        }
-      };
-    }, []);
+  useEffect(() => {
+  return () => {
+    if (scannerRunningRef.current) {
+      Quagga.offProcessed();
+      Quagga.offDetected();
+      Quagga.stop();
+      scannerRunningRef.current = false;
+    }
+  };
+}, []);
 
 
   const vibrate = useCallback((pattern: number | number[]) => {
@@ -101,6 +102,7 @@ const videoRef = useRef<HTMLDivElement>(null);
 
 const stopScanning = useCallback(() => {
   if (scannerRunningRef.current) {
+    Quagga.offProcessed();
     Quagga.offDetected();
     Quagga.stop();
     scannerRunningRef.current = false;
@@ -197,7 +199,51 @@ const stopScanning = useCallback(() => {
 
        addBarcode(value, "scan");
      };
+Quagga.onProcessed((result) => {
+  const drawingCanvas = Quagga.canvas.dom.overlay;
+  const drawingContext = Quagga.canvas.ctx.overlay;
 
+  if (!drawingCanvas || !drawingContext) return;
+
+  const imageData = Quagga.canvas.dom.image;
+
+  if (imageData) {
+    drawingCanvas.width = imageData.width;
+    drawingCanvas.height = imageData.height;
+  }
+
+  drawingContext.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+
+  if (result?.boxes) {
+    result.boxes
+      .filter((box) => box !== result.box)
+      .forEach((box) => {
+        Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingContext, {
+          color: "green",
+          lineWidth: 2,
+        });
+      });
+  }
+
+  if (result?.box) {
+    Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingContext, {
+      color: "blue",
+      lineWidth: 2,
+    });
+  }
+
+  if (result?.codeResult?.code && result.line) {
+    Quagga.ImageDebug.drawPath(
+      result.line,
+      { x: "x", y: "y" },
+      drawingContext,
+      {
+        color: "red",
+        lineWidth: 3,
+      },
+    );
+  }
+});
      Quagga.onDetected(handleDetected);
      Quagga.start();
 
