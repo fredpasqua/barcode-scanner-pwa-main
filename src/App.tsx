@@ -158,7 +158,7 @@ const stopScanning = useCallback(() => {
              ? Math.min(navigator.hardwareConcurrency, 4)
              : 2,
 
-           frequency: 5,
+           frequency: 10,
 
            decoder: {
              readers: ["i2of5_reader", "2of5_reader"],
