@@ -137,17 +137,12 @@ const stopScanning = useCallback(() => {
                width: { ideal: 1920 },
                height: { ideal: 1080 },
              },
-             area: {
-               top: "20%",
-               right: "5%",
-               left: "5%",
-               bottom: "20%",
-             },
-           },
-
-           locator: {
-             patchSize: "medium",
-             halfSample: false,
+           area: {
+  top: "35%",
+  right: "5%",
+  left: "5%",
+  bottom: "35%",
+},
            },
 
            numOfWorkers: navigator.hardwareConcurrency
@@ -160,8 +155,7 @@ const stopScanning = useCallback(() => {
              readers: ["i2of5_reader"],
              multiple: false,
            },
-
-           locate: true,
+locate: false
          },
          (error) => {
            if (error) {
