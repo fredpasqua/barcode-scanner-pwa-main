@@ -142,15 +142,15 @@ const stopScanning = useCallback(() => {
              type: "LiveStream",
              target: videoRef.current ?? undefined,
              constraints: {
-               facingMode: "environment",
+               facingMode: {ideal: "environment"},
                width: { ideal: 1920 },
                height: { ideal: 1080 },
              },
              area: {
-               top: "25%",
-               right: "25%",
-               left: "25%",
-               bottom: "25%",
+               top: "20%",
+               right: "0%",
+               left: "0%",
+               bottom: "20%",
              },
            },
 
