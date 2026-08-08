@@ -556,7 +556,7 @@ function App() {
     <main className="app-shell">
       <header className="topbar">
         <div>
-          <p className="eyebrow">Offline-ready PWA</p>
+          {/* <p className="eyebrow">Offline-ready PWA</p> */}
           <h1>Barcode Scanner</h1>
           <Warning warningMsg={{warning:"Please check the serial number closely!!"}} /> 
         </div>
@@ -707,7 +707,7 @@ function App() {
             <p>The date and time will be added automatically.</p>
 
             <input
-              autoFocus
+            
               value={fileBaseName}
               onChange={(event) => setFileBaseName(event.target.value)}
               placeholder="sampleFileName"
