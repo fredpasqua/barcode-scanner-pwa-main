@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import React from "react";
-
-export default function Warning({ warningMsg }) {
+type NewComponentProps = {
+  warningMsg?: object;
+};
+export default function Warning( {warningMsg } : NewComponentProps ) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
