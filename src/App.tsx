@@ -14,7 +14,7 @@ import {
   STORAGE_KEY,
 } from "./utils";
 import "./styles.css";
-import Warning from "./newComponent";
+import Warning from "./warningComponent";
 type Notice = {
   type: "success" | "warning" | "error" | "info";
   text: string;
