@@ -5,6 +5,7 @@ import {
   useState,
   type FormEvent,
 } from "react";
+import React from "react";
 import Quagga from "@ericblade/quagga2";
 import {
   createCsv,
@@ -13,7 +14,7 @@ import {
   STORAGE_KEY,
 } from "./utils";
 import "./styles.css";
-
+import Warning from "./newComponent";
 type Notice = {
   type: "success" | "warning" | "error" | "info";
   text: string;
@@ -557,6 +558,7 @@ function App() {
         <div>
           <p className="eyebrow">Offline-ready PWA</p>
           <h1>Barcode Scanner</h1>
+          <Warning warningMsg={{warning:"Please check the serial number closely!!"}} /> 
         </div>
 
         <div

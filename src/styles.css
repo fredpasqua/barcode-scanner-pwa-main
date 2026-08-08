@@ -78,3 +78,17 @@ video { width: 100%; height: 100%; object-fit: cover; display: block; }
     z-index: 2;
     pointer-events: none;
 }
+.red {
+    color: red;
+    font-weight: 700;
+}
+.flash-hard {
+    /* 1s duration, instant step transition, loops forever */
+    animation: blinker 1s step-end infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
