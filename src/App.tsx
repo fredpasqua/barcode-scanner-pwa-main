@@ -15,6 +15,7 @@ import {
 } from "./utils";
 import "./styles.css";
 import Warning from "./warningComponent";
+
 type Notice = {
   type: "success" | "warning" | "error" | "info";
   text: string;
@@ -54,6 +55,7 @@ function App() {
   const [fileBaseName, setFileBaseName] = useState("");
 
   const videoRef = useRef<HTMLDivElement>(null);
+  const manualInputRef = useRef<HTMLInputElement>(null);
   const scannerRunningRef = useRef(false);
   const invalidAttemptsRef = useRef(0);
   const barcodeSetRef = useRef(new Set(barcodes));
@@ -70,6 +72,27 @@ function App() {
     barcodeSetRef.current = new Set(barcodes);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(barcodes));
   }, [barcodes]);
+
+  useEffect(() => {
+    const removeFocus = () => {
+      manualInputRef.current?.blur();
+
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    };
+
+    removeFocus();
+
+    const timer = window.setTimeout(removeFocus, 100);
+
+    window.addEventListener("pageshow", removeFocus);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("pageshow", removeFocus);
+    };
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -556,9 +579,13 @@ function App() {
     <main className="app-shell">
       <header className="topbar">
         <div>
-          {/* <p className="eyebrow">Offline-ready PWA</p> */}
           <h1>Barcode Scanner</h1>
-          <Warning warningMsg={{warning:"Please check the serial number closely!!"}} /> 
+
+          <Warning
+            warningMsg={{
+              warning: "Please check the serial number closely!!",
+            }}
+          />
         </div>
 
         <div
@@ -630,6 +657,7 @@ function App() {
 
         <form className="manual-form" onSubmit={submitManual}>
           <input
+            ref={manualInputRef}
             inputMode="numeric"
             pattern="[0-9]{6}"
             maxLength={6}
@@ -704,10 +732,10 @@ function App() {
             aria-labelledby="download-title"
           >
             <h2 id="download-title">Name your CSV file</h2>
+
             <p>The date and time will be added automatically.</p>
 
             <input
-            
               value={fileBaseName}
               onChange={(event) => setFileBaseName(event.target.value)}
               placeholder="sampleFileName"
