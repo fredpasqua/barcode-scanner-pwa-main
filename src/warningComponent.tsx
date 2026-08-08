@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import React from "react";
+
 type NewComponentProps = {
-  warningMsg?: object;
+  warningMsg?: {
+    warning: string;
+  };
 };
-export default function Warning( {warningMsg } : NewComponentProps ) {
+
+export default function Warning({ warningMsg }: NewComponentProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -13,12 +16,10 @@ export default function Warning( {warningMsg } : NewComponentProps ) {
 
     return () => clearTimeout(timer);
   }, []);
+
   if (!warningMsg || !visible) {
     return null;
   }
-  return (
-    <div>
-      <p className="red flash-hard">{warningMsg.warning}</p>
-    </div>
-  );
+
+  return <div className="red ">{warningMsg.warning}</div>;
 }
